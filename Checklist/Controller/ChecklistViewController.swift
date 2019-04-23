@@ -13,11 +13,23 @@ class ChecklistViewController: UITableViewController {
 	var checklistItem = Array<ChecklistItem>()
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		navigationController?.navigationBar.prefersLargeTitles = true
 		checklistItem.append(ChecklistItem(text: "Walk the dog", checked: true))
 		checklistItem.append(ChecklistItem(text: "Brush My Teeth", checked: true))
 		checklistItem.append(ChecklistItem(text: "Lear iOS Development", checked: true))
 		checklistItem.append(ChecklistItem(text: "Soccer Practice", checked: false))
 		checklistItem.append(ChecklistItem(text: "Eat ice Cream", checked: false))
+	}
+	
+	//MARK:- ACTIONS
+	@IBAction func addItem() {
+		let newRowIndex = checklistItem.count
+		checklistItem.append(ChecklistItem(text: "new item", checked: false))
+		let indexPath = IndexPath(row: newRowIndex, section: 0)
+		let indexPaths = [indexPath]
+		//MARK:- I’ve inserted a row at this index, please update yourself
+		//Hey table, my data model has a bunch of new items added to it.
+		tableView.insertRows(at: indexPaths, with: .automatic)
 	}
 	
 	func bindingData(for cell: ChecklistTableViewCell, with item: ChecklistItem) {
@@ -49,6 +61,12 @@ class ChecklistViewController: UITableViewController {
 			bindingData(for: cell as! ChecklistTableViewCell, with: item)
 		}
 		tableView.deselectRow(at: indexPath, animated: true)
+	}
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		//remove from datasource
+		checklistItem.remove(at: indexPath.row)
+		//tell the table view about this changes
+		tableView.deleteRows(at: [indexPath], with: .automatic)
 	}
 }
 
