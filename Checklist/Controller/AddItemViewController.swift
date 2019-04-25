@@ -10,6 +10,9 @@ import UIKit
 
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
+	//MARK:- define delegate
+	weak var delegate: AddItemViewControllerDelegate?
+	
 	@IBOutlet weak var titleTextField: UITextField!
 	@IBOutlet weak var doneButton: UIBarButtonItem!
 	
@@ -28,12 +31,12 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
 	//MARK:- IB Action
 	@IBAction func cancel() {
-		navigationController?.popViewController(animated: true)
+		delegate?.addItemViewControllerDidCancel(self)
 	}
 	
 	@IBAction func done() {
-		print(titleTextField.text!)
-		navigationController?.popViewController(animated: true)
+		let item = ChecklistItem(text: titleTextField.text!, checked: false)
+		delegate?.addItemViewController(self, didFinishAddingItem: item)
 	}
 	
 	//MARK:- table view delegate

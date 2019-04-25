@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
+class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
 	
 	var checklistItem = Array<ChecklistItem>()
 	override func viewDidLoad() {
@@ -67,6 +67,20 @@ class ChecklistViewController: UITableViewController {
 		checklistItem.remove(at: indexPath.row)
 		//tell the table view about this changes
 		tableView.deleteRows(at: [indexPath], with: .automatic)
+	}
+	//MARK:- AddItemViewController Delegate
+	func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+		navigationController?.popViewController(animated: true)
+	}
+	func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
+		navigationController?.popViewController(animated: true)
+	}
+	//MARK:- Override the segue's prepare method
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "AddItem" {
+			let controller = segue.destination as! AddItemViewController
+			controller.delegate = self
+		}
 	}
 }
 
