@@ -6,7 +6,11 @@
 //  Copyright © 2019 Hai Vu. All rights reserved.
 //
 
-class ChecklistItem {
+class ChecklistItem: Equatable {
+	static func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
+		if lhs.text == rhs.text { return true }
+		return false
+	}
 	var text: String!
 	var checked: Bool!
 	init(text: String, checked: Bool) {

@@ -8,5 +8,6 @@
 
 import UIKit
 class ChecklistTableViewCell: UITableViewCell {
-	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var statusLabel: UILabel!
 }

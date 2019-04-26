@@ -8,35 +8,49 @@
 
 import UIKit
 
-class AddItemViewController: UITableViewController, UITextFieldDelegate {
+class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
+	//MARK:- Variable
+	var itemToEdit: ChecklistItem?
 	
 	//MARK:- define delegate
-	weak var delegate: AddItemViewControllerDelegate?
+	weak var delegate: itemDetailViewControllerDelegate?
 	
 	@IBOutlet weak var titleTextField: UITextField!
 	@IBOutlet weak var doneButton: UIBarButtonItem!
 	
+	//MARK:- Life Cycles
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		if let itemToEdit = itemToEdit {
+			titleTextField.text = itemToEdit.text
+			title = "Edit Item"
+			doneButton.isEnabled = true
+		} else {
+			navigationController?.tabBarItem.title = "Add Item"
+			doneButton.isEnabled = false
+		}
 		titleTextField.delegate = self
 		navigationItem.largeTitleDisplayMode = .never
 	}
 	
-	//MARK:- Life Cycles
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
 		titleTextField.becomeFirstResponder()
-		doneButton.isEnabled = false
 	}
 	
 	//MARK:- IB Action
 	@IBAction func cancel() {
-		delegate?.addItemViewControllerDidCancel(self)
+		delegate?.itemDetailViewControllerDidCancel(self)
 	}
 	
 	@IBAction func done() {
-		let item = ChecklistItem(text: titleTextField.text!, checked: false)
-		delegate?.addItemViewController(self, didFinishAddingItem: item)
+		if let itemToEdit = itemToEdit {
+			itemToEdit.text = titleTextField.text
+			delegate?.itemDetailViewController(self, didFinishEditing: itemToEdit)
+		} else {
+			let item = ChecklistItem(text: titleTextField.text!, checked: false)
+			delegate?.itemDetailViewController(self, didFinishAddingItem: item)
+		}
 	}
 	
 	//MARK:- table view delegate
@@ -48,7 +62,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 		let oldText = titleTextField.text!
 		let stringRange = Range(range, in: oldText)!
 		let newText = oldText.replacingCharacters(in: stringRange, with: string)
-			doneButton.isEnabled = !newText.isEmpty
+		doneButton.isEnabled = !newText.isEmpty
 		return true
 	}
 	

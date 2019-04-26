@@ -18,29 +18,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="EXX-u6-av3" customClass="ChecklistTableViewCell" customModule="Checklist" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItem" id="EXX-u6-av3" customClass="ChecklistTableViewCell" customModule="Checklist" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EXX-u6-av3" id="gcK-bi-r7o">
-                                    <rect key="frame" x="0.0" y="0.0" width="370" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHh-JN-6Eb">
-                                            <rect key="frame" x="3" y="3" width="347" height="37.5"/>
+                                            <rect key="frame" x="38" y="0.0" width="304" height="43.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="√" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKv-rv-VbI">
+                                            <rect key="frame" x="0.0" y="0.0" width="38" height="43.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="38" id="uUG-Mo-4J1"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="iHh-JN-6Eb" firstAttribute="top" secondItem="gcK-bi-r7o" secondAttribute="top" constant="3" id="GyH-Fn-VfO"/>
-                                        <constraint firstItem="iHh-JN-6Eb" firstAttribute="leading" secondItem="gcK-bi-r7o" secondAttribute="leading" constant="3" id="Ktq-fP-LZ2"/>
-                                        <constraint firstAttribute="trailing" secondItem="iHh-JN-6Eb" secondAttribute="trailing" constant="20" id="gB4-K7-TUu"/>
-                                        <constraint firstAttribute="bottom" secondItem="iHh-JN-6Eb" secondAttribute="bottom" constant="3" id="zvB-zw-wgf"/>
+                                        <constraint firstAttribute="bottom" secondItem="JKv-rv-VbI" secondAttribute="bottom" id="22s-tY-Lb7"/>
+                                        <constraint firstAttribute="bottom" secondItem="iHh-JN-6Eb" secondAttribute="bottom" id="7Th-w0-uLa"/>
+                                        <constraint firstAttribute="trailing" secondItem="iHh-JN-6Eb" secondAttribute="trailing" id="Mgj-zN-P8u"/>
+                                        <constraint firstItem="JKv-rv-VbI" firstAttribute="leading" secondItem="gcK-bi-r7o" secondAttribute="leading" id="b7T-bb-BAz"/>
+                                        <constraint firstItem="iHh-JN-6Eb" firstAttribute="top" secondItem="gcK-bi-r7o" secondAttribute="top" id="exD-Un-z04"/>
+                                        <constraint firstItem="iHh-JN-6Eb" firstAttribute="leading" secondItem="JKv-rv-VbI" secondAttribute="trailing" id="jT9-Kp-Jxr"/>
+                                        <constraint firstItem="JKv-rv-VbI" firstAttribute="top" secondItem="gcK-bi-r7o" secondAttribute="top" id="s92-46-yiP"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="statusLabel" destination="JKv-rv-VbI" id="woL-34-250"/>
                                     <outlet property="titleLabel" destination="iHh-JN-6Eb" id="zUL-5L-3hx"/>
+                                    <segue destination="1Sf-lC-Nm6" kind="show" identifier="EditItem" trigger="accessoryAction" id="WsS-78-eR9"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -82,7 +96,7 @@
         <!--Add Item-->
         <scene sceneID="sFl-7b-NPo">
             <objects>
-                <tableViewController id="1Sf-lC-Nm6" customClass="AddItemViewController" customModule="Checklist" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="1Sf-lC-Nm6" customClass="ItemDetailViewController" customModule="Checklist" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="eVb-dx-CK6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -145,4 +159,7 @@
             <point key="canvasLocation" x="1743" y="125"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="WsS-78-eR9"/>
+    </inferredMetricsTieBreakers>
 </document>

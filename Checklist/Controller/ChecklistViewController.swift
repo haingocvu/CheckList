@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
+class ChecklistViewController: UITableViewController, itemDetailViewControllerDelegate {
 	
 	var checklistItem = Array<ChecklistItem>()
 	override func viewDidLoad() {
@@ -21,23 +21,12 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
 		checklistItem.append(ChecklistItem(text: "Eat ice Cream", checked: false))
 	}
 	
-	//MARK:- ACTIONS
-	@IBAction func addItem() {
-		let newRowIndex = checklistItem.count
-		checklistItem.append(ChecklistItem(text: "new item", checked: false))
-		let indexPath = IndexPath(row: newRowIndex, section: 0)
-		let indexPaths = [indexPath]
-		//MARK:- I’ve inserted a row at this index, please update yourself
-		//Hey table, my data model has a bunch of new items added to it.
-		tableView.insertRows(at: indexPaths, with: .automatic)
-	}
-	
 	func bindingData(for cell: ChecklistTableViewCell, with item: ChecklistItem) {
 		cell.titleLabel.text = item.text
 		if item.checked {
-			cell.accessoryType = .checkmark
+			cell.statusLabel.text = "√"
 		} else {
-			cell.accessoryType = .none
+			cell.statusLabel.text = ""
 		}
 	}
 	
@@ -69,17 +58,39 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
 		tableView.deleteRows(at: [indexPath], with: .automatic)
 	}
 	//MARK:- AddItemViewController Delegate
-	func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+	func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
 		navigationController?.popViewController(animated: true)
 	}
-	func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
+	func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem) {
+		let newRowIndex = checklistItem.count
+		//insert into model
+		checklistItem.append(item)
+		//tell table view that i have insert a new row
+		let indexPath = IndexPath(row: newRowIndex, section: 0)
+		tableView.insertRows(at: [indexPath], with: .automatic)
+		navigationController?.popViewController(animated: true)
+	}
+	func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
+		//item has updated to model already because it is a reference type
+		//we just need update the cell associated to it
+		if let index = checklistItem.firstIndex(of: item) {
+			let indexPath = IndexPath(row: index, section: 0)
+			let cell = tableView.cellForRow(at: indexPath) as! ChecklistTableViewCell
+			bindingData(for: cell, with: item)
+		}
 		navigationController?.popViewController(animated: true)
 	}
 	//MARK:- Override the segue's prepare method
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "AddItem" {
-			let controller = segue.destination as! AddItemViewController
+			let controller = segue.destination as! ItemDetailViewController
 			controller.delegate = self
+		} else if segue.identifier == "EditItem" {
+			let controller = segue.destination as! ItemDetailViewController
+			controller.delegate = self
+			if let indexPath = tableView.indexPath(for: sender as! ChecklistTableViewCell) {
+				controller.itemToEdit = checklistItem[indexPath.row]
+			}
 		}
 	}
 }
