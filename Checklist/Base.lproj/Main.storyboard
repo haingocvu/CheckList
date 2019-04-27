@@ -54,7 +54,7 @@
                                 <connections>
                                     <outlet property="statusLabel" destination="JKv-rv-VbI" id="woL-34-250"/>
                                     <outlet property="titleLabel" destination="iHh-JN-6Eb" id="zUL-5L-3hx"/>
-                                    <segue destination="1Sf-lC-Nm6" kind="show" identifier="EditItem" trigger="accessoryAction" id="WsS-78-eR9"/>
+                                    <segue destination="1Sf-lC-Nm6" kind="show" identifier="EditItem" trigger="accessoryAction" id="tVm-UC-gih"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -160,6 +160,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="WsS-78-eR9"/>
+        <segue reference="tVm-UC-gih"/>
     </inferredMetricsTieBreakers>
 </document>

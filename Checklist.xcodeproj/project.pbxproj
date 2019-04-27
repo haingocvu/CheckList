@@ -17,6 +17,7 @@
 		EC5A59C4226C5DA100EF70A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC5A59C2226C5DA100EF70A1 /* Main.storyboard */; };
 		EC5A59C6226C5DA400EF70A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC5A59C5226C5DA400EF70A1 /* Assets.xcassets */; };
 		EC5A59C9226C5DA400EF70A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC5A59C7226C5DA400EF70A1 /* LaunchScreen.storyboard */; };
+		EC9AD7882273F578008B094C /* ChecklistViewControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9AD7872273F578008B094C /* ChecklistViewControllerHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		EC5A59C5226C5DA400EF70A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC5A59C8226C5DA400EF70A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC5A59CA226C5DA400EF70A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC9AD7872273F578008B094C /* ChecklistViewControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistViewControllerHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				EC54DA81226E12D800F3343E /* CheckListItemHelper.swift */,
+				EC9AD7872273F578008B094C /* ChecklistViewControllerHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				EC5A59BF226C5DA100EF70A1 /* AppDelegate.swift in Sources */,
 				EC0607B9226F4C24003C2D86 /* ItemDetailViewController.swift in Sources */,
 				EC3F655522714F4A0064CE60 /* itemDetailViewControllerDelegate.swift in Sources */,
+				EC9AD7882273F578008B094C /* ChecklistViewControllerHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

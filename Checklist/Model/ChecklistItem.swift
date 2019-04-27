@@ -5,16 +5,15 @@
 //  Created by Hai Vu on 4/22/19.
 //  Copyright © 2019 Hai Vu. All rights reserved.
 //
+import Foundation
 
-class ChecklistItem: Equatable {
-	static func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
-		if lhs.text == rhs.text { return true }
-		return false
-	}
-	var text: String!
-	var checked: Bool!
-	init(text: String, checked: Bool) {
+//MARK:- In our case, all of the properties of ChecklistItem are standard Swift types,
+//and Swift already knows how to encode/decode those types
+class ChecklistItem: NSObject, Codable {
+	var text: String
+	var isChecked: Bool
+	init(text: String, checked: Bool = true) {
 		self.text = text
-		self.checked = checked
+		self.isChecked = checked
 	}
 }

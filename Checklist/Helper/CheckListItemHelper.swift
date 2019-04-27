@@ -8,6 +8,6 @@
 
 extension ChecklistItem {
 	func toggle() {
-		checked = !checked
+		isChecked = !isChecked
 	}
 }

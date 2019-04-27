@@ -14,19 +14,17 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationController?.navigationBar.prefersLargeTitles = true
-		checklistItem.append(ChecklistItem(text: "Walk the dog", checked: true))
-		checklistItem.append(ChecklistItem(text: "Brush My Teeth", checked: true))
-		checklistItem.append(ChecklistItem(text: "Lear iOS Development", checked: true))
-		checklistItem.append(ChecklistItem(text: "Soccer Practice", checked: false))
-		checklistItem.append(ChecklistItem(text: "Eat ice Cream", checked: false))
+		//dont know why init checklist item with value of false of checked will cause error when editing
+		loadChecklistItems()
 	}
 	
 	func bindingData(for cell: ChecklistTableViewCell, with item: ChecklistItem) {
 		cell.titleLabel.text = item.text
-		if item.checked {
+		if item.isChecked {
 			cell.statusLabel.text = "√"
 		} else {
-			cell.statusLabel.text = ""
+			//i dont know when i set text to "", then prepare for segue work fail
+			cell.statusLabel.text = " "
 		}
 	}
 	
@@ -50,12 +48,14 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
 			bindingData(for: cell as! ChecklistTableViewCell, with: item)
 		}
 		tableView.deselectRow(at: indexPath, animated: true)
+		saveChecklistItems()
 	}
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		//remove from datasource
 		checklistItem.remove(at: indexPath.row)
 		//tell the table view about this changes
 		tableView.deleteRows(at: [indexPath], with: .automatic)
+		saveChecklistItems()
 	}
 	//MARK:- AddItemViewController Delegate
 	func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
@@ -69,6 +69,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
 		let indexPath = IndexPath(row: newRowIndex, section: 0)
 		tableView.insertRows(at: [indexPath], with: .automatic)
 		navigationController?.popViewController(animated: true)
+		saveChecklistItems()
 	}
 	func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
 		//item has updated to model already because it is a reference type
@@ -79,6 +80,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
 			bindingData(for: cell, with: item)
 		}
 		navigationController?.popViewController(animated: true)
+		saveChecklistItems()
 	}
 	//MARK:- Override the segue's prepare method
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
