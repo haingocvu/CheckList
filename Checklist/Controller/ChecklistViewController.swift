@@ -11,9 +11,12 @@ import UIKit
 class ChecklistViewController: UITableViewController, itemDetailViewControllerDelegate {
 	
 	var checklistItem = Array<ChecklistItem>()
+	var checklist: Checklist!
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .never
+		tableView.tableFooterView = UIView()
+		title = checklist.name
 		//dont know why init checklist item with value of false of checked will cause error when editing
 		loadChecklistItems()
 	}
