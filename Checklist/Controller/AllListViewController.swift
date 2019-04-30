@@ -8,11 +8,12 @@
 
 import UIKit
 
-class AllListViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListViewController: UITableViewController, ListDetailViewControllerDelegate, UINavigationControllerDelegate {
 	
 	let cellIdentifier = "ChecklistCell"
 	var dataModel: DataModel!
 	
+	//MARK:- Life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		//large title
@@ -22,6 +23,20 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
 		
 		//register cell with identify
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+	}
+	
+	//ta hook việc gán delegate cho navigationcontroller vào viewDidload vì
+	//khi lần đầu tiên được load thì tránh việc nó sẽ gọi cái willShow viewController của navagationDelegate
+	//khi khó thì code sẽ chạy sai logic. vì lúc nào nó cũng set cái ChecklistIndex = -1
+	//và sẽ không thể nào performSegue showChecklist được
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidLoad()
+		navigationController?.delegate = self
+		let index = dataModel.indexOfSelectedChecklist
+		if index >= 0 && index < dataModel.allList.count {
+			let item = dataModel.allList[index]
+			performSegue(withIdentifier: "ShowChecklist", sender: item)
+		}
 	}
 	
 	// MARK: - Table view data source
@@ -40,6 +55,7 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
 	
 	//MARK:- Table view delegate
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		dataModel.indexOfSelectedChecklist = indexPath.row
 		let checklist = dataModel.allList[indexPath.row]
 		performSegue(withIdentifier: "ShowChecklist", sender: checklist)
 	}
@@ -99,5 +115,13 @@ class AllListViewController: UITableViewController, ListDetailViewControllerDele
 			cell?.textLabel?.text = checklist.name
 		}
 		navigationController?.popViewController(animated: true)
+	}
+	
+	//MARK:- UINavigationController Delegates
+	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+		//was the back button tapped?
+		if viewController === self {
+			dataModel.indexOfSelectedChecklist = -1
+		}
 	}
 }

@@ -67,6 +67,15 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		EC488E2D22781F68005281ED /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				EC5A59CA226C5DA400EF70A1 /* Info.plist */,
+				EC5A59C5226C5DA400EF70A1 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		EC54DA7C226E01D600F3343E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,13 +135,12 @@
 		EC5A59BD226C5DA100EF70A1 /* Checklist */ = {
 			isa = PBXGroup;
 			children = (
-				EC3F655322714F200064CE60 /* Delegate */,
+				EC488E2D22781F68005281ED /* Resource */,
 				EC54DA86226E193600F3343E /* Controller */,
-				EC54DA85226E18F200F3343E /* View */,
+				EC3F655322714F200064CE60 /* Delegate */,
 				EC54DA80226E12C000F3343E /* Helper */,
 				EC54DA7C226E01D600F3343E /* Model */,
-				EC5A59C5226C5DA400EF70A1 /* Assets.xcassets */,
-				EC5A59CA226C5DA400EF70A1 /* Info.plist */,
+				EC54DA85226E18F200F3343E /* View */,
 			);
 			path = Checklist;
 			sourceTree = "<group>";
@@ -368,7 +376,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M6L52K5U45;
-				INFOPLIST_FILE = Checklist/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Checklist/Resource/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -386,7 +394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M6L52K5U45;
-				INFOPLIST_FILE = Checklist/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Checklist/Resource/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

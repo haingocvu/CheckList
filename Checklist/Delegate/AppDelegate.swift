@@ -48,6 +48,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func saveData() {
 		dataModel.saveChecklists()
 	}
-
 }
 

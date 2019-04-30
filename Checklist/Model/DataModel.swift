@@ -10,8 +10,19 @@ import Foundation
 
 class DataModel {
 	var allList = [Checklist]()
+	var indexOfSelectedChecklist: Int {
+		get {
+			let index = UserDefaults.standard.integer(forKey: "ChecklistIndex")
+			return index
+		}
+		set {
+			UserDefaults.standard.set(newValue, forKey: "ChecklistIndex")
+		}
+	}
 	init() {
 		loadChecklists()
+		registerDefaults()
+		handleFirstTime()
 	}
 	func documentsDirectory() -> URL {
 		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -38,6 +49,23 @@ class DataModel {
 			} catch {
 				print("error decoding list array: \(error.localizedDescription)")
 			}
+		}
+	}
+	//UserDefaults will use the values from this dictionary if you ask it for a key and it cannot find a value for that key.
+	func registerDefaults() {
+		let dictionary = ["ChecklistIndex" : -1, "FirstTime" : true] as [String : Any]
+		UserDefaults.standard.register(defaults: dictionary)
+	}
+	
+	func handleFirstTime() {
+		let userDefault = UserDefaults.standard
+		let firstTime = userDefault.bool(forKey: "FirstTime")
+		if firstTime {
+			let checkList = Checklist(name: "List")
+			allList.append(checkList)
+			indexOfSelectedChecklist = 0
+			userDefault.set(false, forKey: "FirstTime")
+			userDefault.synchronize()
 		}
 	}
 }
