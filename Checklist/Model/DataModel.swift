@@ -46,6 +46,7 @@ class DataModel {
 			let decoder = PropertyListDecoder()
 			do {
 				allList = try decoder.decode([Checklist].self, from: data)
+				sortChecklists()
 			} catch {
 				print("error decoding list array: \(error.localizedDescription)")
 			}
@@ -66,6 +67,12 @@ class DataModel {
 			indexOfSelectedChecklist = 0
 			userDefault.set(false, forKey: "FirstTime")
 			userDefault.synchronize()
+		}
+	}
+	
+	func sortChecklists() {
+		allList.sort() { ckl1, ckl2 in
+			ckl1.name.localizedCompare(ckl2.name) == .orderedAscending
 		}
 	}
 }

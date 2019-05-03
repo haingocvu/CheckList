@@ -9,8 +9,13 @@
 import UIKit
 
 extension UIViewController {
-	func makeCell(for tableView: UITableView, with identifier: String, at indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+	func makeCell(for tableView: UITableView, with identifier: String) -> UITableViewCell {
+		let cell: UITableViewCell!
+		if let c = tableView.dequeueReusableCell(withIdentifier: identifier) {
+			cell = c
+		} else {
+			cell = UITableViewCell(style: .subtitle, reuseIdentifier: identifier)
+		}
 		return cell
 	}
 }
