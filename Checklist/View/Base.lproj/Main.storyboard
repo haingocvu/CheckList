@@ -317,6 +317,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Udn-E6-xt1">
                                                     <rect key="frame" x="345" y="12" width="51" height="19.5"/>
+                                                    <connections>
+                                                        <action selector="shouldRemindToggle:" destination="1Sf-lC-Nm6" eventType="valueChanged" id="p0N-kh-wtQ"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>

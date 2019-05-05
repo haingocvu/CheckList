@@ -21,7 +21,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
 	
 	func bindingData(for cell: ChecklistTableViewCell, with item: ChecklistItem) {
 		//cell.titleLabel.text = item.text
-		cell.titleLabel.text = "\(item.text) \(item.itemID)"
+		cell.titleLabel.text = "\(item.text)"
 		if item.isChecked {
 			cell.statusLabel.text = "√"
 		} else {

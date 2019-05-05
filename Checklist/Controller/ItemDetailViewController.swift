@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
 	//MARK:- Variable
@@ -50,6 +51,18 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
 	}
 	
 	//MARK:- IB Action
+	
+	@IBAction func shouldRemindToggle(_ switchControl: UISwitch) {
+		titleTextField.resignFirstResponder()
+		if shouldRemindSwitch.isOn {
+			let center = UNUserNotificationCenter.current()
+			center.requestAuthorization(options: [.alert, .sound]) {
+				isgranted, err in
+				//do
+			}
+		}
+	}
+	
 	@IBAction func cancel() {
 		delegate?.itemDetailViewControllerDidCancel(self)
 	}
@@ -59,11 +72,13 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
 			itemToEdit.text = titleTextField.text!
 			itemToEdit.shouldRemind = shouldRemindSwitch.isOn
 			itemToEdit.dueDate = dueDate
+			itemToEdit.scheduleNotification()
 			delegate?.itemDetailViewController(self, didFinishEditing: itemToEdit)
 		} else {
 			let item = ChecklistItem(text: titleTextField.text!, checked: false)
 			item.shouldRemind = shouldRemindSwitch.isOn
 			item.dueDate = dueDate
+			item.scheduleNotification()
 			delegate?.itemDetailViewController(self, didFinishAddingItem: item)
 		}
 	}
